@@ -1,0 +1,131 @@
+* {
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+}
+nav {
+  text-align: right;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  background-color: rgb(144, 192, 199);
+  /* Fixed navbar */
+  top: 0;
+  left: 0;
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+}
+nav a {
+  font-size: large;
+  margin-right: 2%;
+  text-decoration: none;
+  color: #FFF;
+}
+
+/* General */
+.hidden {
+  display: none;
+}
+form {
+  display: inline-grid;
+}
+form * {
+  margin-top: 5%;
+}
+
+/* Browse */
+#addon-list:not(.empty), #review-list:not(.empty) {
+  display: grid;
+  margin: 2vw;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2vw;
+}
+@media (max-width: 800px) {
+  #addon-list { grid-template-columns: repeat(1, 1fr); }
+}
+@media (min-width: 800px) {
+  #addon-list { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+  #addon-list { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1200px) {
+  #addon-list { grid-template-columns: repeat(4, 1fr); }
+}
+#addon-list div.addon, #review-list div.addon {
+  padding-bottom: 2vw;
+  background-color: gray;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 5px solid transparent;
+  border-radius: 5px;
+}
+#addon-list div.addon *::selection {
+  background: none;
+}
+#addon-list div.addon:focus,
+#addon-list div.addon:hover {
+  border: rgb(135, 209, 229) solid;
+  border-width: 5px;
+  cursor: pointer;
+}
+#addon-list div.addon h3 {
+  padding-top: 2%;
+  font-size: 30px;
+  color: #FFF;
+}
+#addon-list div.addon p {
+  font-size: 22px;
+  color: #FFF;
+  margin-bottom: 0;
+}
+#addon-list div.rating {
+  display: ruby;
+}
+#addon-list div.rating h3 {
+  margin-left: 10px;
+}
+#addon-list div.rating img {
+  width: 2vw;
+  height: 2vw;
+}
+
+/* Reviews */
+#review-list div {
+  background-color: lightgray;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+}
+#review-list div a {
+  font-size: 20px;
+}
+
+/* User */
+#main-user-info {
+  background-color: aliceblue;
+  height: 200px;
+  bottom: 0;
+}
+#main-user-info #user-username {
+  font-weight: bold;
+  font-size: 30px;
+  padding-top: 3vw;
+}
+#main-user-info #user-nav {
+  padding-top: 1vw;
+  font-size: large;
+}
+#main-user-info #user-nav a {
+  color: gray;
+  padding-left: 0.8vw;
+  padding-right: 0.8vw;
+  text-decoration: none;
+}
+.user-category {
+  font-weight: 500;
+}
+
+/* Login */
+.auth-text {
+  font-weight: 400;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <title>Submit your add-on! - SuperTux Addons</title>
+</head>
+<body>
+  <nav>
+    <a href="/">Welcome</a>
+    <a href="/browse.html">Browse Add-ons</a>
+    <a href="/submit.html">Submit your Add-on!</a>
+    <a href="/login.html" id="nav-login">Login</a>
+  </nav>
+  <br><br>
+  <h3 class="auth-text">Submit your add-on!</h3>
+  <form id="addon-form" method="POST">
+    <input type="text" placeholder="Name" name="name"></input>
+    <input type="text" placeholder="Description" name="description"></input>
+    <label for="type">Choose a type:</label>
+    <select id="type" name="type">
+      <option value="worldmap">Worldmap</option>
+      <option value="world">World</option>
+      <option value="levelset">Levelset</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <label for="license">Choose a license:</label>
+    <select id="license" name="license">
+      <option value="GPLv3.0">GPL v3.0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <label for="images">Upload screenshots:</label>
+    <input type="file" id="images" accept="image/png" multiple></input>
+    <label for="addon">Upload add-on:</label>
+    <input type="file" id="addon" accept=".zip"></input>
+    <br>
+    <input type="submit" value="Submit"></input>
+  </form>
+  <script src="/scripts/main.js"></script>
+  <script src="/scripts/submit.js"></script>
+</body>
+</html>

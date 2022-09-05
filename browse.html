@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <title>Browse - SuperTux Addons</title>
+</head>
+<body>
+  <nav>
+    <a href="/">Welcome</a>
+    <a href="/browse.html">Browse Add-ons</a>
+    <a href="/submit.html">Submit your Add-on!</a>
+    <a href="/login.html" id="nav-login">Login</a>
+  </nav>
+  <br><br><br>
+  <label for="sort-by">Sort by:</label>
+  <select id="sort-by">
+    <option value="downloads">Most downloaded</option>
+    <option value="rating">Best rated</option>
+    <option value="latest">Latest</option>
+    <option value="oldest">Oldest</option>
+  </select>
+  <div id="addon-list">
+  </div>
+  <button type="button" id="prev-page">Previous</button>
+  <button type="button" id="next-page">Next</button>
+  <script src="/scripts/main.js"></script>
+  <script src="/scripts/rating.js"></script>
+  <script src="/scripts/browse.js"></script>
+</body>
+</html>

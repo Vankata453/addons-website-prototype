@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <title>Login or register - SuperTux Addons</title>
+</head>
+<body>
+  <nav>
+    <a href="/">Welcome</a>
+    <a href="/browse.html">Browse Add-ons</a>
+    <a href="/submit.html">Submit your Add-on!</a>
+    <a href="/login.html" id="nav-login">Login</a>
+  </nav>
+  <br><br>
+  <h2 class="hidden" id="no-access-text">To perform this operation, you first need to log in.</h2>
+  <br>
+  <h3 class="auth-text">Log into your SuperTux Add-ons account.</h3>
+  <form id="login-form" method="POST">
+    <input type="text" placeholder="Email" name="email"></input>
+    <input type="password" placeholder="Password" name="password"></input>
+    <br>
+    <input type="submit" value="Login"></input>
+  </form>
+  <br>
+  <h3 class="auth-text">Don't have an account? Register here.</h3>
+  <form id="register-form" method="POST">
+    <input type="text" placeholder="Username" name="username"></input>
+    <input type="text" placeholder="Email" name="email"></input>
+    <input type="password" placeholder="Password" name="password"></input>
+    <input type="password" placeholder="Repeat password" name="password-confirm"></input>
+    <br>
+    <input type="submit" value="Register"></input>
+  </form>
+  <script src="/scripts/main.js"></script>
+  <script src="/scripts/login.js"></script>
+</body>
+</html>
