@@ -18,7 +18,7 @@ const ratingStarImages = {
 }
 
 // Functions
-async function generateRatingDiv(addon) {
+function generateRatingDiv(addon) {
   const addonRatingDiv = document.createElement("div");
   
   if (addon.rating) {

@@ -81,7 +81,7 @@ async function reloadAddons() {
     const addonDiv = document.createElement("div");
     const addonTitle = document.createElement("h3");
     const addonDesc = document.createElement("p");
-    const addonRatingDiv = await generateRatingDiv(addon);
+    const addonRatingDiv = generateRatingDiv(addon);
     const addonAuthor = document.createElement("p");
     
     if (addon.images[0]) addonDiv.style.backgroundImage = `url('${addon.images[0]}')`;

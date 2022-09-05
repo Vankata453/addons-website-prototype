@@ -1,7 +1,7 @@
 {
-  "name": "add-ons_website_prototype_server",
+  "name": "add-ons_website_testing_server",
   "version": "1.0.0",
-  "description": "Prototype server for prototype SuperTux Add-ons website.",
+  "description": "Testing server for a prototype SuperTux Add-ons website.",
   "main": "server.js",
   "dependencies": {
     "json-server": "^0.17.0",

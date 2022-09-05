@@ -59,7 +59,7 @@ async function loadData() {
       const addonDiv = document.createElement("div");
       const addonTitle = document.createElement("h3");
       const addonDesc = document.createElement("p");
-      const addonRatingDiv = await generateRatingDiv(addon);
+      const addonRatingDiv = generateRatingDiv(addon);
 
       if (addon.images[0]) addonDiv.style.backgroundImage = `url('${addon.images[0]}')`;
       addonTitle.textContent = addon.name;
