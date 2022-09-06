@@ -71,7 +71,12 @@ async function loadData() {
       addonDiv.classList.add("addon");
       addonDiv.id = addon.id;
       addonDiv.addEventListener("click", function(ev) {
-        window.location.href = `/addon.html?id=${ev.target.id}`;
+        let target = ev.target;
+        while (target) {
+          if (target.classList.contains("addon")) break;
+          target = target.parentElement; // If a child element of the add-on div has been pressed.
+        }
+        window.location.href = `/addon.html?id=${target.id}`;
       });
 
       addonsList.appendChild(addonDiv);

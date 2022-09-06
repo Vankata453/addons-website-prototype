@@ -112,6 +112,15 @@ async function reloadAddons() {
     addonDiv.appendChild(addonRatingDiv);
     addonDiv.appendChild(addonAuthor);
     addonDiv.classList.add("addon");
+    addonDiv.id = addon.id;
+    addonDiv.addEventListener("click", function(ev) {
+      let target = ev.target;
+      while (target) {
+        if (target.classList.contains("addon")) break;
+        target = target.parentElement; // If a child element of the add-on div has been pressed.
+      }
+      window.location.href = `/addon.html?id=${target.id}`;
+    });
 
     list.appendChild(addonDiv);
   }
