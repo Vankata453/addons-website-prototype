@@ -7,8 +7,8 @@ document.getElementById("addon-form").addEventListener("submit", async function(
   const data = {
     "name": formData.get("name"),
     "description": formData.get("description"),
-    "type": ev.target.querySelector("select#type").value,
-    "license": ev.target.querySelector("select#license").value,
+    "type": Number(ev.target.querySelector("select#type").value),
+    "license": Number(ev.target.querySelector("select#license").value),
     "images": await Promise.all(Array.from(ev.target.querySelector("input[type='file']#images").files).map((file) => {return getBase64(file).then((result) => result)}))
   };
   try {

@@ -90,6 +90,14 @@ server.post("/submit-add-ons", function(req, res, next) {
     return;
   }
 
+  // Check if a valid add-on type integer has been given.
+  if (!Number.isInteger(req.body.type) || req.body.type <= 0 || req.body.type > 3) {
+    res.status(400).jsonp({ error: "Invalid add-on type integer given." });
+  }
+  // Check if a valid add-on license integer has been given.
+  if (!Number.isInteger(req.body.license) || req.body.license <= 0 || req.body.license > 5) {
+    res.status(400).jsonp({ error: "Invalid add-on license integer given." });
+  }
   // Check if add-on author has submitted any non-verified add-ons in the past 30 minutes.
   const date = new Date();
   const cooldown = server.db["__wrapped__"]["submit-add-ons"].some(function(addon) {

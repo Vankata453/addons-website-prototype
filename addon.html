@@ -8,7 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" rel="stylesheet">
-  <title>Welcome - SuperTux Addons</title>
+  <link rel="stylesheet" type="text/css" href="/scripts/external/slick/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="/scripts/external/slick/slick-theme.css"/>
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+  </style>
+  <title>SuperTux Addons</title>
 </head>
 <body>
   <nav>
@@ -17,6 +24,27 @@
     <a href="/submit.html">Submit your Add-on!</a>
     <a href="/login.html" id="nav-login">Login</a>
   </nav>
+  <br>
+  <div id="main-addon-info">
+    <p id="addon-title"></p>
+    <p id="addon-author">By <a href="#"></a></p>
+  </div>
+  <h2 class="addon-category">Description</h3>
+  <p id="addon-description"></p>
+  <br>
+  <div class="addon-single-row-category">
+    <h3>Type:</h3><p id="addon-type"></p>
+  </div>
+  <div class="addon-single-row-category">
+    <h3>License:</h3><a id="addon-license" target="_blank"></a>
+  </div>
+  <br><br><br>
+  <h2 class="addon-category">Images</h3>
+  <div id="addon-images"></div>
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script type="text/javascript" src="/scripts/external/slick/slick.min.js"></script>
   <script src="/scripts/main.js"></script>
+  <script src="/scripts/addon.js"></script>
 </body>
 </html>

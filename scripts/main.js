@@ -52,3 +52,18 @@ document.addEventListener("DOMContentLoaded", async function() {
     window.location.href = loggedOutRedirect;
   }
 });
+
+// Add-on data
+
+const addonTypes = {
+  1: "Worldmap",
+  2: "World",
+  3: "Levelset"
+}
+const addonLicenses = {
+  1: { name: "GPLv3.0", url: "https://www.gnu.org/licenses/gpl-3.0.html" },
+  2: { name: "2" },
+  3: { name: "3" },
+  4: { name: "4" },
+  5: { name: "5" }
+}
