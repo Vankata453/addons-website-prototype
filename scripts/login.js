@@ -1,5 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-if(urlParams.get("denied") == "true") { // Access to another page has been denied, because the user is not logged in.
+if (urlParams.get("denied") == "true") { // Access to another page has been denied, because the user is not logged-in.
   document.getElementById("no-access-text").classList.remove("hidden");
 }
 

@@ -17,7 +17,8 @@ function setURLParameter(key, value) {
   window.history.pushState({}, "", url);
 }
 
-let loggedOutRedirect; // Specfies a path where to force redirect the user, if they are logged out.
+let loggedInAction = function() {}; // Specfies a function to be executed, if the user is logged-in.
+let loggedOutAction = function() {}; // Specfies a function to be executed, if the user isn't logged-in.
 
 document.addEventListener("DOMContentLoaded", async function() {
   let response;
@@ -35,21 +36,20 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
   }
   catch (err) {
-    if (loggedOutRedirect) {
-      window.location.href = loggedOutRedirect;
-    }
+    loggedOutAction();
     return;
   }
   const responseData = await response.json();
 
   if (responseData.id) {
-    // User is logged in
+    // User is logged-in
     const loginLink = document.getElementById("nav-login");
     loginLink.removeAttribute("href");
     loginLink.textContent = `Welcome, ${responseData.username}!`;
+    loggedInAction(responseData.id);
   }
-  else if (loggedOutRedirect) {
-    window.location.href = loggedOutRedirect;
+  else {
+    loggedOutAction();
   }
 });
 

@@ -41,10 +41,42 @@
   <br><br><br>
   <h2 class="addon-category">Images</h3>
   <div id="addon-images"></div>
+  <br>
+  <h2 class="addon-category">Reviews</h3>
+  <div id="review-login">
+    <h4>You must be logged-in to review add-ons.</h4>
+    <br>
+  </div>
+  <form id="review-form" method="POST">
+    <textarea cols="8" rows="5" id="review" placeholder="Write details about your review (optional)"></textarea>
+    <label for="license">Choose your star rating (required):</label>
+    <select id="rating" name="rating">
+      <option value="0.5">0.5</option>
+      <option value="1">1</option>
+      <option value="1.5">1.5</option>
+      <option value="2">2</option>
+      <option value="2.5">2.5</option>
+      <option value="3">3</option>
+      <option value="3.5">3.5</option>
+      <option value="4">4</option>
+      <option value="4.5">4.5</option>
+      <option value="5">5</option>
+    </select>
+    <br>
+    <input type="submit" value="Submit review"></input>
+    <br>
+  </form>
+  <div id="review-done">
+    <h4>Your review:</h4>
+  </div>
+  <br>
+  <div id="review-list">
+  </div>
   <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <script type="text/javascript" src="/scripts/external/slick/slick.min.js"></script>
   <script src="/scripts/main.js"></script>
+  <script src="/scripts/review.js"></script>
   <script src="/scripts/addon.js"></script>
 </body>
 </html>

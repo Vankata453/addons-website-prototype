@@ -129,7 +129,7 @@ server.post("/submit-add-ons", function(req, res, next) {
     }
   }
   // Check if given add-on file is a valid ".zip" archive and fits within the 20MB size limit.
-  if (!req.body.file.startsWith("data:application/x-zip-compressed;base64,")) {
+  if (!req.body.file.startsWith("data:application/zip;base64,")) {
     res.status(400).jsonp({ error: "Submitted add-on file is not a valid '.zip' archive." });
     return;
   }
@@ -138,9 +138,9 @@ server.post("/submit-add-ons", function(req, res, next) {
     return;
   }
   // Assign author of add-on (the current user).
-  req.body["author"] = userResponse.id;
+  req.body.author = userResponse.id;
   // Assign submission date.
-  req.body["submittedOn"] = date.getTime() / 1000;
+  req.body.submittedOn = date.getTime() / 1000;
 
   next();
 });
@@ -200,6 +200,66 @@ server.get("/image", function(req, res, next) {
   res.send(image);
 });
 
+// REVIEW MANAGEMENT
+
+// Review submission back-end
+server.post("/reviews", function(req, res, next) {
+  // Check if the current user is authorized.
+  const userResponse = getUserFromToken(req.header("Authorization"));
+  if (userResponse.error) {
+    res.status(401).jsonp(userResponse);
+    return;
+  }
+
+  if (fieldAvailable(req.body.body)) {
+    // Convert review body to string, if it exists.
+    req.body.body = String(req.body.body);
+    // Check if review body is within a 200 characters limit.
+    if (req.body.body.length > 200) {
+      res.status(400).jsonp({ error: "Review body should have a maximum of 200 characters." });
+      return;
+    }
+  }
+  else {
+    // Delete the review body from the request, if it does not have a valid value.
+    delete req.body.body;
+  }
+  // Check if add-on to-be-reviewed is specified.
+  if (!fieldAvailable(req.body.for)) {
+    res.status(400).jsonp({ error: "Add-on to-be-reviewed not specified." });
+    return;
+  }
+  // Check if current user does not already have a review of the add-on.
+  if (server.db.get("reviews").find({ author: userResponse.id, for: req.body.for }).value()) {
+    res.status(400).jsonp({ error: "A user can only review a certain add-on once." });
+    return;
+  }
+  // Check if the current user has not reviewed any add-ons in the past 10 minutes.
+  const date = new Date();
+  const cooldown = server.db["__wrapped__"]["reviews"].some(function(review) {
+    return review.author === userResponse.id && date.getTime() / 1000 - review.submittedOn < 600;
+  });
+  if (cooldown) {
+    res.status(400).jsonp({ error: "A user can author reviews in an interval of 10 minutes." });
+    return;
+  }
+  // Check if a valid rating is provided.
+  if (!req.body.rating) {
+    res.status(400).jsonp({ error: "No rating provided." });
+    return;
+  }
+  const ratingFixed = req.body.rating.toFixed(1);
+  if (req.body.rating < 0.5 || req.body.rating > 5 || (!ratingFixed.endsWith(".0") && !ratingFixed.endsWith(".5"))) {
+    res.status(400).jsonp({ error: "Invalid rating provided." });
+    return;
+  }
+  // Add review author and submission date.
+  req.body.author = userResponse.id;
+  req.body.submittedOn = date.getTime() / 1000;
+
+  next();
+});
+
 // Additional utilities
 
 function fieldAvailable(field) {
@@ -221,7 +281,7 @@ function getUserFromToken(authToken) {
       const data = jwt.verify(token, JWT_SECRET_KEY);
 
       let user = server.db.get("users").find({ email: data.email }).value();
-      return user;
+      return { username: user.username, joinedOn: user.joinedOn, id: user.id };
     }
     catch (error) {
       return { error: error.message };

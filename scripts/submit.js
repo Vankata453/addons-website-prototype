@@ -1,4 +1,4 @@
-loggedOutRedirect = "/login.html?denied=true";
+loggedOutAction = function() { window.location.href = "/login.html?denied=true" };
 
 document.getElementById("addon-form").addEventListener("submit", async function(ev) {
   ev.preventDefault();
@@ -36,7 +36,7 @@ document.getElementById("addon-form").addEventListener("submit", async function(
       throw new Error(responseData["error"] ? responseData["error"] : responseData);
     }
   }
-  catch(err) {
+  catch (err) {
     alert("There was an error submitting this add-on: " + err.message);
     return;
   }

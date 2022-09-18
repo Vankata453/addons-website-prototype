@@ -26,6 +26,7 @@ async function loadData() {
 
   // Display username
   document.getElementById("user-username").textContent = userData.username;
+  document.title = (userData.username ? `${userData.username} - Users` : "User") + " - " + document.title;
 
   // User add-ons
   const addonsList = document.getElementById("addon-list");
@@ -59,7 +60,7 @@ async function loadData() {
       const addonDiv = document.createElement("div");
       const addonTitle = document.createElement("h3");
       const addonDesc = document.createElement("p");
-      const addonRatingDiv = generateRatingDiv(addon);
+      const addonRatingDiv = generateRatingDiv(addon.rating);
 
       if (addon.images[0]) addonDiv.style.backgroundImage = `url('${addon.images[0]}')`;
       addonTitle.textContent = addon.name;
@@ -107,38 +108,7 @@ async function loadData() {
     reviewsList.classList.add("empty");
   }
   else {
-    for (review of reviews) {
-      const reviewDiv = document.createElement("div");
-      const reviewAddonTitle = document.createElement("a");
-      const reviewRating = document.createElement("h3");
-      const reviewBody = document.createElement("p");
-
-      try {
-        response = await fetch(`http://localhost:3000/add-ons?id=${review.for}`, {
-          method: "GET"
-        });
-    
-        if (!response.ok) {
-          const responseData = await response.json();
-          throw new Error(responseData["error"] ? responseData["error"] : responseData);
-        }
-      }
-      catch (err) {
-        alert("Error fetching data of add-on from review: " + err.message);
-      }
-      const reviewedAddon = (await response.json())[0];
-
-      reviewAddonTitle.textContent = reviewedAddon.name;
-      reviewAddonTitle.setAttribute("href", `/addon.html?id=${reviewedAddon.id}`);
-      reviewRating.textContent = review.rating;
-      reviewBody.textContent = review.body;
-
-      reviewDiv.appendChild(reviewAddonTitle);
-      reviewDiv.appendChild(reviewRating);
-      reviewDiv.appendChild(reviewBody);
-  
-      reviewsList.appendChild(reviewDiv);
-    }
+    (await generateReviewDivs(reviews, true, false)).forEach((reviewDiv) => reviewsList.appendChild(reviewDiv));
   }
 
   // User about section

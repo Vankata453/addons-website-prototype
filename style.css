@@ -84,26 +84,53 @@ form * {
   overflow-y: hidden;
   max-height: 3.6em;
 }
-#addon-list div.rating {
-  display: ruby;
-}
-#addon-list div.rating h3 {
-  margin-left: 10px;
-}
-#addon-list div.rating img {
-  width: 2vw;
-  height: 2vw;
-}
 
 /* Reviews */
-#review-list div {
+#review-login, #review-form, #review-done {
+  display: none;
+}
+#review-login.shown {
+  display: block;
+}
+#review-form.shown {
+  display: inline-grid;
+}
+#review-done.shown {
+  display: inline-block;
+}
+#review-login h4, #review-done h4 {
+  font-weight: 400;
+}
+#review-form {
+  width: 25vw;
+}
+#review-done div {
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
+#review-list div, #review-done div {
   background-color: lightgray;
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 5px;
 }
-#review-list div a {
+#review-list div a, #review-done div a {
   font-size: 20px;
+}
+#review-list div #review-date, #review-done div #review-date {
+  font-weight: 100;
+}
+
+/* Ratings */
+div.rating {
+  display: ruby;
+}
+div.rating h3 {
+  margin-left: 10px;
+}
+div.rating img {
+  width: 2vw;
+  height: 2vw;
 }
 
 /* User */
