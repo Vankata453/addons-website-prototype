@@ -18,7 +18,7 @@
     <a href="/login.html" id="nav-login">Login</a>
   </nav>
   <br><br>
-  <h3 class="auth-text">Submit your add-on!</h3>
+  <h3 class="auth-text" id="title-text">Submit your add-on!</h3>
   <form id="addon-form" method="POST">
     <input type="text" placeholder="Name" name="name"></input>
     <input type="text" placeholder="Description" name="description"></input>
@@ -36,11 +36,22 @@
       <option value="4">4</option>
       <option value="5">5</option>
     </select>
+    <label for="license">Choose earliest supported version:</label>
+    <select id="earliest-version" name="license">
+      <option value="0.7.0">0.7.0</option>
+    </select>
     <label for="images">Upload screenshots:</label>
     <input type="file" id="images" accept="image/png" multiple></input>
+    <div id="image-previews"></div>
     <label for="addon">Upload add-on:</label>
     <input type="file" id="addon" accept=".zip"></input>
     <br>
+    <div id="create-revision" class="hidden">
+      <label for="revision-title">Revision information:</label>
+      <input type="text" placeholder="Title" id="revision-title"></input>
+      <input type="text" placeholder="Description" id="revision-description"></input>
+      <br>
+    </div>
     <input type="submit" value="Submit"></input>
   </form>
   <script src="/scripts/main.js"></script>

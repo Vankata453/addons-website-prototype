@@ -29,11 +29,55 @@ nav a {
 .hidden {
   display: none;
 }
-form {
+form, form div {
   display: inline-grid;
 }
 form * {
   margin-top: 5%;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 500px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a.selected {
+  padding-left: 5px;
+}
+.dropdown-content i {
+  padding-right: 5px;
+}
+.dropdown-content a:hover {
+  background-color: #DDD;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Submit */
+#image-previews {
+  justify-content: center;
+}
+#image-previews img {
+  display: flex;
+  max-width: 200px;
+  max-height: 200px;
+}
+#image-previews img:hover {
+  cursor: pointer;
+  filter: brightness(40%);
 }
 
 /* Browse */
@@ -76,6 +120,13 @@ form * {
   padding-top: 2%;
   font-size: 30px;
   color: #FFF;
+}
+#addon-list div.addon h5 {
+  background-color: #DDD;
+  border-radius: 2px;
+  margin-bottom: 0;
+  margin-left: 10vw;
+  margin-right: 10vw;
 }
 #addon-list div.addon p {
   font-size: 22px;
@@ -160,6 +211,32 @@ div.rating img {
 /* Add-on */
 #main-addon-info #addon-title, #main-addon-info #addon-author, #main-addon-info #addon-author a {
   color: white;
+}
+#main-addon-options {
+  background-color: lightgray;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  position: absolute;
+  right: 0;
+  top: 187px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1vw;
+  padding-left: 25px;
+}
+#main-addon-options *::selection {
+  background: none;
+}
+#main-addon-options h4 {
+  font-weight: 400;
+  text-overflow: none;
+}
+#main-addon-options h4:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+#main-addon-options i {
+  margin-left: 5px;
 }
 .addon-category {
   font-weight: 600;

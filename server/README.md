@@ -8,6 +8,7 @@ To run this testing server for the SuperTux Add-ons website:
 {
   "add-ons": [],
   "submit-add-ons": [],
+  "edit-add-on": [],
   "reviews": [],
   "users": []
 }

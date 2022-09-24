@@ -12,7 +12,8 @@ const sortQueries = {
   "downloads": "_sort=downloads&_order=desc",
   "rating": "_sort=rating&_order=desc",
   "latest": "_sort=submittedOn&_order=desc",
-  "oldest": "_sort=submittedOn&_order=asc"
+  "oldest": "_sort=submittedOn&_order=asc",
+  "versionSupport": "_sort=versionSupport&_order=desc"
 };
 
 // Dynamic data variables
@@ -79,12 +80,14 @@ async function reloadAddons() {
 
   for (addon of addons) {
     const addonDiv = document.createElement("div");
+    const addonVersion = document.createElement("h5");
     const addonTitle = document.createElement("h3");
     const addonDesc = document.createElement("p");
     const addonRatingDiv = generateRatingDiv(addon.rating);
     const addonAuthor = document.createElement("p");
     
     if (addon.images[0]) addonDiv.style.backgroundImage = `url('${addon.images[0]}')`;
+    addonVersion.textContent = addon.versionSupport;
     addonTitle.textContent = addon.name;
     addonDesc.textContent = addon.description;
 
@@ -107,6 +110,7 @@ async function reloadAddons() {
 
     addonAuthor.textContent = `By: ${cachedUsernames[addon.author]}`;
 
+    addonDiv.appendChild(addonVersion);
     addonDiv.appendChild(addonTitle);
     addonDiv.appendChild(addonDesc);
     addonDiv.appendChild(addonRatingDiv);

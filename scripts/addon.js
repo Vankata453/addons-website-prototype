@@ -1,10 +1,13 @@
-let addonId = getURLParameter("id");
+let addonID = getURLParameter("id");
+let version = getURLParameter("version");
+let userID;
 
-loggedInAction = async function(userId) { // If the user is logged-in, allow them to write a review, only if they haven't authored one already.
+loggedInAction = async function(id) { // If the user is logged-in, allow them to write a review, only if they haven't authored one already.
+  userID = id; // Save user ID globally.
   // Check for review from the current user.
   let response;
   try {
-    response = await fetch(`http://localhost:3000/reviews?author=${userId}&for=${addonId}`, {
+    response = await fetch(`http://localhost:3000/reviews?author=${id}&for=${addonID}`, {
       method: "GET"
     });
 
@@ -27,16 +30,20 @@ loggedInAction = async function(userId) { // If the user is logged-in, allow the
     // If the current user doesn't have a review, show the form for creating one.
     document.getElementById("review-form").classList.add("shown");
   }
+
+  loadData();
 }
 loggedOutAction = function() { // If the user is logged out, prevent them from writing reviews.
   document.getElementById("review-login").classList.add("shown");
+
+  loadData();
 }
 
-document.addEventListener("DOMContentLoaded", async function() {
+async function loadData() {
   // Fetch add-on data.
   let response;
   try {
-    response = await fetch(`http://localhost:3000/add-ons?id=${addonId}`, {
+    response = await fetch(`http://localhost:3000/add-ons?id=${addonID}${version ? `&version=${version}` : ""}`, {
       method: "GET"
     });
 
@@ -49,6 +56,15 @@ document.addEventListener("DOMContentLoaded", async function() {
     alert("Error fetching add-on data: " + err.message);
   }
   const addon = (await response.json())[0];
+
+  // If the current user owns the add-on, show special action buttons.
+  if (addon.author == userID) {
+    const editBtn = document.getElementById("edit");
+    editBtn.classList.remove("hidden");
+    editBtn.addEventListener("click", function() {
+      window.location.href = `/submit.html?edit=${addon.id}`;
+    })
+  }
 
   // Load add-on data.
   document.title = `${addon.name ? addon.name : "Add-on"} - ${document.title}`;
@@ -79,6 +95,33 @@ document.addEventListener("DOMContentLoaded", async function() {
   const addonLicenseLink = document.getElementById("addon-license");
   addonLicenseLink.textContent = addonLicense.name;
   if (addonLicense.url) addonLicenseLink.setAttribute("href", addonLicense.url);
+
+  // Load add-on revisions.
+  const revisionsDropdown = document.getElementById("revisions-content");
+
+  version = version ? version : addon.revisions.length; // If no version to be loaded is specified, set the value to the latest one.
+
+  for (let revisionId = addon.revisions.length - 1; revisionId >= 0; revisionId--) {
+    const revision = addon.revisions[revisionId];
+    const revisionAnchor = document.createElement("a");
+
+    const revisionVersion = revisionId + 1;
+    const revisionURL = new URL(window.location);
+    revisionURL.searchParams.set("version", revisionVersion);
+    revisionAnchor.setAttribute("href", revisionURL);
+    if (revisionVersion == version) {
+      revisionAnchor.classList.add("selected");
+
+      const revisionCheckIcon = document.createElement("i");
+      revisionCheckIcon.className = "fa fa-check";
+
+      revisionAnchor.appendChild(revisionCheckIcon);
+    }
+    revisionAnchor.innerHTML += `[v${revisionVersion}, ${revision.versionSupport}] ${revision.title} (${new Date(revision.submittedOn * 1000).toLocaleDateString()})`;
+    if (revision.description) revisionAnchor.setAttribute("title", revision.description); // Show revision description on hover, if it exists.
+
+    revisionsDropdown.appendChild(revisionAnchor);
+  }
 
   // Load images.
   const addonImages = document.getElementById("addon-images");
@@ -130,7 +173,7 @@ document.addEventListener("DOMContentLoaded", async function() {
   else {
     (await generateReviewDivs(reviews, false)).forEach((reviewDiv) => reviewsList.appendChild(reviewDiv));
   }
-});
+};
 
 // Submitting a review
 document.getElementById("review-form").addEventListener("submit", async function(ev) {
@@ -139,7 +182,7 @@ document.getElementById("review-form").addEventListener("submit", async function
   const data = {
     "body": ev.target.querySelector("textarea#review").value,
     "rating": Number(ev.target.querySelector("select#rating").value),
-    "for": addonId
+    "for": addonID
   };
 
   let response;
