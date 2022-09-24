@@ -80,6 +80,9 @@ server.post("/submit-add-ons", function(req, res, next) {
     return;
   }
 
+  // Filter fields in request body.
+  req.body = filterFields(req.body, ["name", "description", "type", "license", "versionSupport", "images", "file"]);
+
   // Check availability of all fields
   const content = [
     req.body.name,
@@ -147,6 +150,10 @@ server.post("/edit-add-on", function(req, res, next) {
     res.status(401).jsonp({ error: "You do not have permission to edit this add-on." });
     return;
   }
+
+  // Filter fields in request body.
+  req.body = filterFields(req.body, ["name", "description", "type", "license", "versionSupport", "images", "file", "updateFor", "revision"]);
+  req.body.revision = filterFields(req.body.revision, ["title", "description"]);
 
   // Check availability of all other fields
   const content = [
@@ -338,6 +345,9 @@ server.post("/reviews", function(req, res, next) {
     return;
   }
 
+  // Filter fields in request body.
+  req.body = filterFields(req.body, ["body", "rating", "for"]);
+
   if (fieldAvailable(req.body.body)) {
     // Convert review body to string, if it exists.
     req.body.body = String(req.body.body);
@@ -391,6 +401,14 @@ server.post("/reviews", function(req, res, next) {
 
 function fieldAvailable(field) {
   return (typeof field === "string" ? field != "" : true) && field != undefined && field != null;
+}
+
+function filterFields(obj, fields) {
+  const result = {};
+  for (field of fields) {
+    result[field] = obj[field];
+  }
+  return result;
 }
 
 function base64GetMBSize(file) {
